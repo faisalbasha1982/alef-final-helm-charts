@@ -35,26 +35,26 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-          - name: MONGODB_HOST
-            valueFrom:
-              configMapKeyRef:
-                name: mongodb-configmap
-                key: mongodb_host
-          - name: MONGODB_DATABASE
-            valueFrom:
-              configMapKeyRef:
-                name: mongodb-configmap
-                key: mongodb_database
-          - name: MONGODB_USER
-            valueFrom:
-              secretKeyRef:
-                name: mongodb-secret
-                key: mongodb_username
-          - name: MONGODB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mongodb-secret
-                key: mongodb_password
+            - name: MONGO_HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: mongodb-app-configmap
+                  key: MONGO_HOSTNAME
+            - name: MONGO_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: mongodb-app-configmap
+                  key: MONGO_DB
+            - name: MONGO_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-app-secret
+                  key: MONGO_USERNAME
+            - name: MONGODB_PASSWORd
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-app-secret
+                  key: MONGO_PASSWORD   
           ports:
             - name: http
               containerPort: 5000
